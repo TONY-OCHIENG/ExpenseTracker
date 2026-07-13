@@ -1,7 +1,6 @@
-
-
 //Registration controller function
 
+import database from "../configs/database.js"
 import { hashPassword } from "../configs/hashPassword.js"
 
 export const register = (request,response) => {
@@ -26,5 +25,11 @@ export const register = (request,response) => {
 
     const hashpassword = hashPassword(password)
     
-  
+    try {
+        const sqlQuerry = "INSERT INTO user(firstName,lastName,password,email) VALUES(?,?,?,?)"
+        database.query(sqlQuerry,[])
+    } catch (error) {
+        console.log(error)
+        return response.status(500).json({status: false, message: "Internal server error"})
+    }
 }
