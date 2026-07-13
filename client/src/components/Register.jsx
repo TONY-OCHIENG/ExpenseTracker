@@ -23,10 +23,11 @@ function Register() {
         event.preventDefault()
         axios.post('http://localhost:3000/auth/register',details)
         .then((response) => {
+            console.log(response)
             if (response.data.status) {
                 toast.success(response.data.message)
             } else {
-                toast.error("An error occured")
+                toast.error(response.data.message)
             }
         })
         .catch((error) => console.log(error))
@@ -34,7 +35,7 @@ function Register() {
   return (
     <div className='py-16 bg-gray-100 h-[100vh] w-full flex justify-center px-2 items-center'>
         <div className='p-4 bg-white rounded-md shadow-md md:w-[35%] w-full'>
-            <form action="" className='w-full'>
+            <form action="" className='w-full' onSubmit={handleSubmit}>
                 <label htmlFor="firsrName" className='text-gray-800'>First name</label>
                 <input type="text" onChange={handleDetails} name="firstName" id="firstName" required className='p-2 border rounded-md w-full mb-2'/>
                 <label htmlFor="lastName" className='text-gray-800'>Last name</label>
