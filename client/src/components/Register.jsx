@@ -1,6 +1,8 @@
+import axios from 'axios'
 import React from 'react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 function Register() {
     const [details,setDetails] = useState({
@@ -15,6 +17,19 @@ function Register() {
             ...prev,
             [name] : value
         }))
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        axios.post('http://localhost:3000/auth/register',details)
+        .then((response) => {
+            if (response.data.status) {
+                toast.success(response.data.message)
+            } else {
+                toast.error("An error occured")
+            }
+        })
+        .catch((error) => console.log(error))
     }
   return (
     <div className='py-16 bg-gray-100 h-[100vh] w-full flex justify-center px-2 items-center'>
