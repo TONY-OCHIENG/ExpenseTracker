@@ -27,7 +27,10 @@ export const register = (request,response) => {
     
     try {
         const sqlQuerry = "INSERT INTO user(firstName,lastName,password,email) VALUES(?,?,?,?)"
-        database.query(sqlQuerry,[])
+        database.query(sqlQuerry,[firstName,lastName,email,hashpassword],(error,result) => {
+            if (error) return response.status(200).json({status: false, message: error})
+            return response.status(201).json({status: true, message:"Account registered successfully"})
+        })
     } catch (error) {
         console.log(error)
         return response.status(500).json({status: false, message: "Internal server error"})
