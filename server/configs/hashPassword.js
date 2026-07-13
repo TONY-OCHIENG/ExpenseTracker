@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 
 const saltround = 10
 
@@ -9,4 +9,4 @@ export const hashPassword = (password) => {
 
 export const comparepassword = (plain,hashed) => {
     return bcrypt.compareSync(plain,hashed)
-}
+} 

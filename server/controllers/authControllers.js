@@ -2,6 +2,8 @@
 
 //Registration controller function
 
+import { hashPassword } from "../configs/hashPassword.js"
+
 export const register = (request,response) => {
     const {firstName, lastName, email, password} = request.body
     if (!firstName || !lastName || !email || !password) {
@@ -21,5 +23,8 @@ export const register = (request,response) => {
     if (password.length < 6) {
         return response.status(200).json({status: false, message: "Password must be 8 characters long"})
     } 
+
+    const hashpassword = hashPassword(password)
+    
   
 }
