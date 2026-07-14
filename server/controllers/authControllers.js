@@ -29,7 +29,7 @@ export const register = (request,response) => {
     const hashpassword = hashPassword(password)
     
     try {
-        const sqlQuerry = "INSERT INTO user(firstName,lastName,password,email) VALUES(?,?,?,?)"
+        const sqlQuerry = "INSERT INTO user(firstName,lastName,email,password) VALUES(?,?,?,?)"
         database.query(sqlQuerry,[firstName,lastName,email,hashpassword],(error,result) => {
             if (error) return response.status(200).json({status: false, message: error})
             return response.status(201).json({status: true, message:"Account registered successfully"})
