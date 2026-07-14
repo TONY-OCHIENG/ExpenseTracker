@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 function Login() {
@@ -8,7 +8,7 @@ function Login() {
         email:'',
         password:''
     })
-
+    const navigate = useNavigate()
     const handleDetails = (event) => {
         const {name, value} = event.target
         setDetails((prev) => ({
@@ -17,12 +17,16 @@ function Login() {
         }))
     }
 
+    axios.defaults.withCredentials = true
+
     const handleSubmit = (event) => {
         event.preventDefault()
         axios.post('http://localhost:3000/auth/login',details)
         .then((response) => {
             if (response.data.status) {
                 toast.success(response.data.message)
+                navigate('/dashboard')
+
             } else {
                 toast.error(response.data.message)
             }
