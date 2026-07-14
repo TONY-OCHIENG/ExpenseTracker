@@ -8,6 +8,7 @@ function Login() {
         email:'',
         password:''
     })
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
     const handleDetails = (event) => {
         const {name, value} = event.target
@@ -21,14 +22,18 @@ function Login() {
 
     const handleSubmit = (event) => {
         event.preventDefault()
+        setLoading(true)
         axios.post('http://localhost:3000/auth/login',details)
         .then((response) => {
+          console.log(response)
             if (response.data.status) {
                 toast.success(response.data.message)
                 navigate('/dashboard')
+                setLoading(false)
 
             } else {
                 toast.error(response.data.message)
+                setLoading(false)
             }
         })
         .catch((error) => console.log(error))
@@ -42,7 +47,10 @@ function Login() {
                 <input type="email"  onChange={handleDetails}  name="email" id="email" required className='p-2 border rounded-md w-full mb-2'/>
                 <label htmlFor="password" className='text-gray-800'>Password</label>
                 <input type="password"  onChange={handleDetails}  name="password" id="password" required className='p-2 border rounded-md w-full mb-2'/>
-                <button className='w-full py-2 mt-2 text-white bg-blue-600 rounded-md cursor-pointer'>Login</button>
+                <button className='w-full py-2 mt-2 text-white bg-blue-600 rounded-md cursor-pointer flex justify-center items-center'>
+                {
+                    loading ? <div className='h-6 w-6 border-2 rounded-full border-t-blue-400 animate-spin'></div> : <h1>Login</h1>   
+                }</button>
                 <p className='text-xs text-gray-600 mt-2'>Don't have an Account? <Link to={'/register'} className='font-extrabold'>Click to Register</Link></p>
             </form>
         </div>
