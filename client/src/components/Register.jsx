@@ -3,7 +3,7 @@ import React from 'react'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { FaSpinner } from 'react-icons/fa'
+import { FaEye, FaEyeSlash, FaSpinner } from 'react-icons/fa'
 
 function Register() {
     const [details,setDetails] = useState({
@@ -13,6 +13,7 @@ function Register() {
         password:''
     })
     const [loading, setLoading] = useState(false)
+    const [visible,setVisible] = useState(false)
     const navigate = useNavigate()
     const handleDetails = (event) => {
         const {name, value} = event.target
@@ -50,7 +51,14 @@ function Register() {
                 <label htmlFor="email" className='text-gray-800'>Email</label>
                 <input type="email"  onChange={handleDetails}  name="email" id="email" required className='p-2 border rounded-md w-full mb-2'/>
                 <label htmlFor="password" className='text-gray-800'>Password</label>
-                <input type="password"  onChange={handleDetails}  name="password" id="password" required className='p-2 border rounded-md w-full mb-2'/>
+                <div className='flex items-center justify-center border  rounded-md h-10 p-2'>
+                   <input type={visible ? 'text' : 'password'}  onChange={handleDetails}  name="password" id="password" required className='mt-2 outline-none rounded-md w-full mb-2'/>
+                    <div className='h-full flex justify-center items-center cursor-pointer' onClick={() => setVisible(!visible)}>
+                        {
+                            visible ? <FaEye/> : <FaEyeSlash/>
+                        } 
+                    </div>
+                </div>               
                 <button className='w-full py-2 mt-2 text-white bg-blue-600 rounded-md cursor-pointer flex justify-center items-center'>{
                     loading ? <div className='h-6 w-6 border-2 rounded-full border-t-blue-400 animate-spin'></div> : <h1>Register</h1>   
                 }</button>
