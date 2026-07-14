@@ -36,3 +36,17 @@ export const register = (request,response) => {
         return response.status(500).json({status: false, message: "Internal server error"})
     }
 }
+
+export const login = (request, response) => {
+    const { email, password} = request.body
+    if (!email || !password ) {
+        return response.status(200).json({status: false, message: "Please fill all fields"})
+    }
+
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    
+    if (!regex.test(email)) {
+        return response.status(200).json({status: false, message: "Enter a valid email address"})
+    }
+    
+}
