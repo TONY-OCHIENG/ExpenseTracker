@@ -11,7 +11,9 @@ export const auth = (request,response,next) => {
             if (err) {
                 return response.status(401).json({status:false, message:"Access denied"})
             } else {
-                request.role = decoded.role
+                request.lastName = decoded.lastName
+                request.firstName = decoded.firstName
+                request.userID = decoded.userID
                 next()
             }
         })

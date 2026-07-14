@@ -1,7 +1,10 @@
 //Registration controller function
 
 import database from "../configs/database.js"
-import { hashPassword } from "../configs/hashPassword.js"
+import { comparepassword, hashPassword } from "../configs/hashPassword.js"
+import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv'
+dotenv.config()
 
 export const register = (request,response) => {
     const {firstName, lastName, email, password} = request.body
@@ -47,6 +50,31 @@ export const login = (request, response) => {
     
     if (!regex.test(email)) {
         return response.status(200).json({status: false, message: "Enter a valid email address"})
+    }
+
+    try {
+        const sqlQuerry = "SELECT * FROM user WHERE email = ?"
+        database.query(sqlQuerry,[email], (error,result) => {
+            if (error) return response.status(200).json({status: false, message: error})
+            if (result.length > 0) {
+                const hpassword = comparepassword(password,result[0].password)
+                if (hpassword) {
+                    const lastName = result[0].lastName
+                    const firstName = result[0].firstName
+                    const userID = result[0].user_id
+                    const token = jwt.sign({lastName,firstName,userID},process.env.SECRET,{expiresIn:'2d'})
+                    response.cookie('token',token)
+                    return response.status(200).json({status: true, message: "login successfully"})
+                } else {
+                    return response.status(200).json({status: false, message: "wrong credentials"})
+                } 
+            } else {
+                return response.status(200).json({status: false, message: "user not found"})
+            }
+        })
+    } catch (error) {
+        console.log(error)
+        return response.status(500).json({status: false, message:"Internal server error"})
     }
     
 }
