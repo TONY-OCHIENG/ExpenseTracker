@@ -27,7 +27,6 @@ function Login() {
         setLoading(true)
         axios.post('http://localhost:3000/auth/login',details)
         .then((response) => {
-          console.log(response)
             if (response.data.status) {
                 toast.success(response.data.message)
                 navigate('/dashboard')
@@ -48,7 +47,7 @@ function Login() {
                 <label htmlFor="email" className='text-gray-800'>Email</label>
                 <input type="email"  onChange={handleDetails}  name="email" id="email" required className='p-2 border rounded-md w-full mb-2'/>
                 <label htmlFor="password" className='text-gray-800'>Password</label>
-                <div className='flex items-center justify-center border  rounded-md h-10 p-2'>
+                <div className='mb-4 flex items-center justify-center border  rounded-md h-10 p-2'>
                     <input type={visible ? 'text' : 'password'}  onChange={handleDetails}  name="password" id="password" required className='mt-2 outline-none rounded-md w-full mb-2'/>
                     <div className='h-full flex justify-center items-center cursor-pointer' onClick={() => setVisible(!visible)}>
                         {
