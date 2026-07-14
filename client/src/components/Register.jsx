@@ -23,7 +23,6 @@ function Register() {
         event.preventDefault()
         axios.post('http://localhost:3000/auth/register',details)
         .then((response) => {
-            console.log(response)
             if (response.data.status) {
                 toast.success(response.data.message)
             } else {
