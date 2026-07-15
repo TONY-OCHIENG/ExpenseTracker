@@ -78,3 +78,11 @@ export const login = (request, response) => {
     }
     
 }
+
+export const userDetails = (request,response) => {
+    return response.status(200).json({status: true, details: {
+        firstName: request.firstName,
+        lastName: request.lastName,
+        userID : request.userID
+    }})
+}
