@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -39,6 +39,18 @@ function Login() {
         })
         .catch((error) => console.log(error))
     }
+
+    useEffect(() => {
+    axios.get('http://localhost:3000/auth/user')
+    .then((response) => {
+      if (response.data.status) {
+           navigate('/dashboard')
+      } else {
+        navigate('/login')
+      }
+    })
+    .catch((error) => {console.log(error)})
+  },[])
   return (
     <div className='py-16 bg-gray-100 h-[100vh] w-full flex justify-center px-2 items-center'>
         <div className='p-4 bg-white rounded-md shadow-md md:w-[35%] w-full'>
