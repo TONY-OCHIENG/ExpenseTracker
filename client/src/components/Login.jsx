@@ -41,16 +41,16 @@ function Login() {
     }
 
     useEffect(() => {
-    axios.get('http://localhost:3000/auth/user')
-    .then((response) => {
-      if (response.data.status) {
-           navigate('/dashboard')
-      } else {
-        navigate('/login')
-      }
-    })
-    .catch((error) => {console.log(error)})
-  },[])
+        axios.get('http://localhost:3000/auth/user')
+        .then((response) => {
+        if (response.data.status) {
+            navigate('/dashboard')
+        } else {
+            navigate('/login')
+        }
+        })
+        .catch((error) => {console.log(error)})
+     },[])
   return (
     <div className='py-16 bg-gray-100 h-[100vh] w-full flex justify-center px-2 items-center'>
         <div className='p-4 bg-white rounded-md shadow-md md:w-[35%] w-full'>
