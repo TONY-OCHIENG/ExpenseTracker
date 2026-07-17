@@ -2,7 +2,8 @@ import React from 'react'
 
 function Home() {
   return (
-    <div>Home</div>
+    <div className='w-full h-[100vh]'>      
+    </div>
   )
 }
 
