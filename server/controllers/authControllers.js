@@ -86,3 +86,8 @@ export const userDetails = (request,response) => {
         userID : request.userID
     }})
 }
+
+export const logout = (request,response) => {
+    response.clearCookie('token')
+    return response.status(200).json({status: true, message:"Logout successfully"})
+}
