@@ -1,5 +1,6 @@
-import { BanknoteArrowDown, Coins, DollarSign, Wallet } from 'lucide-react'
+import { ArrowBigRight, ArrowRight, BanknoteArrowDown, Coins, DollarSign, Wallet } from 'lucide-react'
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function Home() {
   return (
@@ -32,9 +33,21 @@ function Home() {
                 <h1 className='text-gray-700'>Total Expense</h1>
                 <h1 className='font-extrabold text-xl'>KSH 100,000</h1>
              </div>
-          </div>
-         
+          </div>         
         </div>
+        <div className='mt-10 grid grid-cols-1 md:grid-cols-2 gap-2'>
+          <div className='p-4 rounded-md bg-white shadow-md h-[500px]'>
+            <div className='flex justify-between items-center'>
+              <p className='text-sm text-gray-600'>Recent Transactions</p>
+              <Link to={'/dashboard/expense'} className='flex text-xs px-4 py-2 items-center gap-2 bg-gray-200 rounded-md text-gray-600'>See All <ArrowRight className='w-4 h-4 text-blue-600'/></Link>
+            </div>
+          </div>
+          <div className='p-4 rounded-md bg-white shadow-md h-[500px]'>
+              <div className='flex justify-between items-center'>
+              <p className='text-sm text-gray-600 mt-2'>Financial Overview</p>
+            </div>
+          </div>
+        </div>        
       </div>     
     </div>
   )
