@@ -14,7 +14,7 @@ function Income() {
             <button className='py-2 px-4 text-blue-600 font-extrabold cursor-pointer border rounded-md border-blue-600'>+ Add Income</button>
           </div>
         </div>
-           <div className='p-4 bg-white rounded-md mt-4 flex flex-col h-[400px] overflow-y-auto mb-4'>
+           <div className='p-4 bg-white rounded-md mt-4 flex flex-col h-[400px] overflow-y-auto'>
           <div className='flex justify-between mb-2'>
             <div>
                 <h1 className='text-md text-gray-800 font-extrabold'>Income Sources</h1>
