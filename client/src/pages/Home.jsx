@@ -1,12 +1,27 @@
 import axios from 'axios'
 import { ArrowBigRight, ArrowRight, BanknoteArrowDown, Coins, DollarSign, Wallet } from 'lucide-react'
 import React from 'react'
+import { useEffect } from 'react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 function Home() {
   const [income,setIncome] = useState(null)
-  axios.get('http://localhost:3000/auth/totalIncome')
+  const [userId, setUserID] = useState(null)
+  
+  useEffect(() => {
+    axios.get('http://localhost:3000/auth/user')
+    .then((response) => {
+      if (response.data.status) {
+        setUserID(response.data.details.userID)
+      } else {
+        navigate('/login')
+      }
+    })
+    .catch((error) => { console.log(error)})
+  },[])
+
+  axios.get('http://localhost:3000/auth/totalIncome',userId)
   .then((response) => {
     console.log(response)
   })
