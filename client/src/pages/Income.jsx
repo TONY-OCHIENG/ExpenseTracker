@@ -4,6 +4,7 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 function Income() {
   const [open,setOpen] = useState(false)
@@ -35,7 +36,21 @@ function Income() {
       [name] : value
     }))
   }
-  console.log(details)
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    axios.post('http://localhost:3000/auth/income',details)
+    .then((response) => {
+      if (response.data.status) {
+        toast.success(response.data.message)
+        setOpen(false)
+      } else {
+        toast.error("An error occurred")
+      }
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
   return (
     <div className={`relative w-full h-full ${open ? 'overflow-hidden' : ''}`}>
       <div className='max-w-7xl md:w-[90%] mx-auto px-2 w-full'>
@@ -63,7 +78,7 @@ function Income() {
        <h1 className='text-md text-gray-700 mb-4'>Add Income</h1>
        <XIcon className='h-5 w-5' onClick={() => handleOpen()}/>
       </div>
-      <form action="" className='mt-4'>
+      <form action="" className='mt-4' onSubmit={handleSubmit}>
         <label htmlFor="incomesource">Income Source</label>
         <input type="text" onChange={handleDetails} className='w-full p-2 border rounded-md mb-2' required id='incomesource' name='incomeDetails'/>
         <label htmlFor="incomeprice">Amount</label>
