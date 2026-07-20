@@ -43,6 +43,11 @@ function Income() {
       if (response.data.status) {
         toast.success(response.data.message)
         setOpen(false)
+        setDetails({
+          incomeDetails:'',
+          incomePrice:'',
+          incomeDate:''
+        })
       } else {
         toast.error("An error occurred")
       }
@@ -80,11 +85,11 @@ function Income() {
       </div>
       <form action="" className='mt-4' onSubmit={handleSubmit}>
         <label htmlFor="incomesource">Income Source</label>
-        <input type="text" onChange={handleDetails} className='w-full p-2 border rounded-md mb-2' required id='incomesource' name='incomeDetails'/>
+        <input type="text" value={details.incomeDetails} onChange={handleDetails} className='w-full p-2 border rounded-md mb-2' required id='incomesource' name='incomeDetails'/>
         <label htmlFor="incomeprice">Amount</label>
-        <input type="number" onChange={handleDetails} className='w-full p-2 border rounded-md mb-2' required id='incomeprice' name='incomePrice'/>    
+        <input type="number" value={details.incomePrice} onChange={handleDetails} className='w-full p-2 border rounded-md mb-2' required id='incomeprice' name='incomePrice'/>    
         <label htmlFor="incomedate">Date</label>
-        <input type="date" onChange={handleDetails} className='w-full p-2 border rounded-md mb-2' required id='incomedate' name='incomeDate'/>    
+        <input type="date" value={details.incomeDate} onChange={handleDetails} className='w-full p-2 border rounded-md mb-2' required id='incomedate' name='incomeDate'/>    
         <button className='w-full py-2 bg-blue-600 text-white font-extrabold cursor-pointer rounded-md mt-4'>Add Income</button>
       </form>
       </div>
