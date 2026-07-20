@@ -3,6 +3,7 @@ import { Download, XIcon } from 'lucide-react'
 import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function Income() {
   const [open,setOpen] = useState(false)
@@ -12,10 +13,15 @@ function Income() {
     incomePrice:'',
     incomeDate:'',
   })
+  const navigate = useNavigate()
   useEffect(() => {
     axios.get('http://localhost:3000/auth/user')
     .then((response) => {
-      console.log(response)
+      if (response.data.status) {
+        setDetails({userId:response.data.details.userID})
+      } else {
+        navigate('/login')
+      }
     })
     .catch((error) => { console.log(error)})
   },[])
@@ -24,8 +30,12 @@ function Income() {
   }
   const handleDetails = (event) => {
     const { name, value} = event.target
+    setDetails((prev) => ({
+      ...prev,
+      [name] : value
+    }))
   }
-  
+  console.log(details)
   return (
     <div className={`relative w-full h-full ${open ? 'overflow-hidden' : ''}`}>
       <div className='max-w-7xl md:w-[90%] mx-auto px-2 w-full'>
@@ -55,11 +65,11 @@ function Income() {
       </div>
       <form action="" className='mt-4'>
         <label htmlFor="incomesource">Income Source</label>
-        <input type="text" className='w-full p-2 border rounded-md mb-2' required id='incomesource' name='incomeDetails'/>
+        <input type="text" onChange={handleDetails} className='w-full p-2 border rounded-md mb-2' required id='incomesource' name='incomeDetails'/>
         <label htmlFor="incomeprice">Amount</label>
-        <input type="number" className='w-full p-2 border rounded-md mb-2' required id='incomeprice' name='incomePrice'/>    
+        <input type="number" onChange={handleDetails} className='w-full p-2 border rounded-md mb-2' required id='incomeprice' name='incomePrice'/>    
         <label htmlFor="incomedate">Date</label>
-        <input type="date" className='w-full p-2 border rounded-md mb-2' required id='incomedate' name='incomeDate'/>    
+        <input type="date" onChange={handleDetails} className='w-full p-2 border rounded-md mb-2' required id='incomedate' name='incomeDate'/>    
         <button className='w-full py-2 bg-blue-600 text-white font-extrabold cursor-pointer rounded-md mt-4'>Add Income</button>
       </form>
       </div>
