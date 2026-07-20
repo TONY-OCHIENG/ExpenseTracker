@@ -1,6 +1,7 @@
 import express from 'express'
-import { income } from '../controllers/expenseControllers.js'
+import { income, totalIncome } from '../controllers/expenseControllers.js'
 
 const expenseRoutes = express.Router()
 expenseRoutes.post('/income',income)
+expenseRoutes.get('/totalIncome',totalIncome)
 export default expenseRoutes
