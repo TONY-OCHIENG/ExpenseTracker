@@ -24,7 +24,9 @@ function Home() {
   useEffect(() => {
     axios.get(`http://localhost:3000/auth/totalIncome/${userId}`)
     .then((response) => {
-      console.log(response)
+      if (response.data.status) {
+        setIncome(response.data.result)
+      }
     })
     .catch((error) => { console.log(error)})
   },[userId])
@@ -47,7 +49,7 @@ function Home() {
             </div>
              <div className='flex flex-col ml-5'>
                 <h1 className='text-gray-700'>Total Income</h1>
-                <h1 className='font-extrabold text-xl'>KSH 190,000</h1>
+                <h1 className='font-extrabold text-xl'>KSH {income > 0 ? income : 0}</h1>
              </div>
           </div>
           <div className='bg-white p-4 rounded-md shadow-md flex  gap-2'>
