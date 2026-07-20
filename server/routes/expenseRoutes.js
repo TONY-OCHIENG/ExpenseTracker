@@ -3,5 +3,5 @@ import { income, totalIncome } from '../controllers/expenseControllers.js'
 
 const expenseRoutes = express.Router()
 expenseRoutes.post('/income',income)
-expenseRoutes.get('/totalIncome',totalIncome)
+expenseRoutes.get('/totalIncome/:id',totalIncome)
 export default expenseRoutes
