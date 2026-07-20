@@ -1,8 +1,16 @@
+import axios from 'axios'
 import { ArrowBigRight, ArrowRight, BanknoteArrowDown, Coins, DollarSign, Wallet } from 'lucide-react'
 import React from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 function Home() {
+  const [income,setIncome] = useState(null)
+  axios.get('http://localhost:3000/auth/totalIncome')
+  .then((response) => {
+    console.log(response)
+  })
+  .catch((error) => { console.log(error)})
   return (
     <div className='w-full h-[100vh]'>
       <div className='max-w-7xl mx-auto md:w-[90%] w-full px-4'>
