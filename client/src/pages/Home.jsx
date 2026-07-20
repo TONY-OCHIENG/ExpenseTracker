@@ -21,11 +21,13 @@ function Home() {
     .catch((error) => { console.log(error)})
   },[])
 
-  axios.get('http://localhost:3000/auth/totalIncome',userId)
-  .then((response) => {
-    console.log(response)
-  })
-  .catch((error) => { console.log(error)})
+  useEffect(() => {
+    axios.get(`http://localhost:3000/auth/totalIncome/${userId}`)
+    .then((response) => {
+      console.log(response)
+    })
+    .catch((error) => { console.log(error)})
+  },[userId])
   return (
     <div className='w-full h-[100vh]'>
       <div className='max-w-7xl mx-auto md:w-[90%] w-full px-4'>
