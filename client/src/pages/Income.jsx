@@ -1,7 +1,12 @@
 import { Download, XIcon } from 'lucide-react'
 import React from 'react'
+import { useState } from 'react'
 
 function Income() {
+  const [open,setOpen] = useState(false)
+  const handleOpen = () => {
+    setOpen(!open)
+  }
   return (
     <div className='relative w-full h-full'>
       <div className='max-w-7xl md:w-[90%] mx-auto px-2 w-full'>
