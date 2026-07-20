@@ -30,6 +30,7 @@ function Home() {
     })
     .catch((error) => { console.log(error)})
   },[userId])
+  const formatter = new Intl.NumberFormat('en-US')
   return (
     <div className='w-full h-[100vh]'>
       <div className='max-w-7xl mx-auto md:w-[90%] w-full px-4'>
@@ -49,7 +50,7 @@ function Home() {
             </div>
              <div className='flex flex-col ml-5'>
                 <h1 className='text-gray-700'>Total Income</h1>
-                <h1 className='font-extrabold text-xl'>KSH {income > 0 ? income : 0}</h1>
+                <h1 className='font-extrabold text-xl'>KSH {formatter.format(income > 0 ? income : 0)}</h1>
              </div>
           </div>
           <div className='bg-white p-4 rounded-md shadow-md flex  gap-2'>
