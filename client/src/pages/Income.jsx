@@ -24,7 +24,7 @@ function Income() {
         </div>
 
       </div>
-      <div className='absolute bg-gray-100 z-50 w-[300px] md:w-[600px] flex flex-col rounded-md shadow-ms p-4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
+      <div className='absolute bg-white z-50 w-[300px] md:w-[600px] flex flex-col rounded-md shadow-ms p-4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
       <div className='flex justify-between border-b'>
        <h1 className='text-md text-gray-700 mb-4'>Add Income</h1>
        <XIcon className='h-5 w-5'/>
@@ -39,6 +39,7 @@ function Income() {
         <button className='w-full py-2 bg-blue-600 text-white font-extrabold cursor-pointer rounded-md mt-4'>Add Income</button>
       </form>
       </div>
+      <div className='absolute bg-black/40 backdrop-blur-sm z-40 w-full h-screen flex flex-col shadow-ms p-4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'></div>
     </div>
   )
 }
