@@ -35,6 +35,7 @@ function Expense() {
       [name] : value
     }))
   }
+  
   return (
     <div className={`relative w-full h-full ${open ? 'overflow-hidden' : ''}`}>
       <div className='max-w-7xl md:w-[90%] mx-auto px-2 w-full'>
@@ -62,12 +63,12 @@ function Expense() {
        <XIcon className='h-5 w-5' onClick={() => handleOpen()}/>
       </div>
       <form action="" className='mt-4'>
-        <label htmlFor="incomesource">Expense</label>
-        <input type="text" className='w-full p-2 border rounded-md mb-2' required id='incomesource' name='incomeDetails'/>
-        <label htmlFor="incomeprice">Amount</label>
-        <input type="number"  className='w-full p-2 border rounded-md mb-2' required id='incomeprice' name='incomePrice'/>    
-        <label htmlFor="incomedate">Date</label>
-        <input type="date"  className='w-full p-2 border rounded-md mb-2' required id='incomedate' name='incomeDate'/>    
+        <label htmlFor="incomeexpense">Expense</label>
+        <input type="text" value={details.expenseDetails} onChange={handleDetails} className='w-full p-2 border rounded-md mb-2' required id='incomeexpense' name='expenseDetails'/>
+        <label htmlFor="expenseprice">Amount</label>
+        <input type="number" value={details.expensePrice} onChange={handleDetails} className='w-full p-2 border rounded-md mb-2' required id='expenseprice' name='expensePrice'/>    
+        <label htmlFor="expensedate">Date</label>
+        <input type="date" value={details.expenseDate} onChange={handleDetails} className='w-full p-2 border rounded-md mb-2' required id='expensedate' name='expenseDate'/>    
         <button className='w-full py-2 bg-blue-600 text-white font-extrabold cursor-pointer rounded-md mt-4'>Add Expense</button>
       </form>
       </div>

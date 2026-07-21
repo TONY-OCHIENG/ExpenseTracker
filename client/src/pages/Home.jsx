@@ -22,6 +22,7 @@ function Home() {
   },[])
 
   useEffect(() => {
+    const fetchIncome = async () => {
     axios.get(`http://localhost:3000/auth/totalIncome/${userId}`)
     .then((response) => {
       if (response.data.status) {
@@ -29,6 +30,9 @@ function Home() {
       }
     })
     .catch((error) => { console.log(error)})
+    }
+    
+    fetchIncome()
   },[userId])
   const formatter = new Intl.NumberFormat('en-US')
   return (
