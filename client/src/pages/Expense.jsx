@@ -28,6 +28,13 @@ function Expense() {
   const handleOpen = () => {
     setOpen(!open)
   }
+  const handleDetails = (event) => {
+    const { name, value} = event.target
+    setDetails((prev) => ({
+      ...prev,
+      [name] : value
+    }))
+  }
   return (
     <div className={`relative w-full h-full ${open ? 'overflow-hidden' : ''}`}>
       <div className='max-w-7xl md:w-[90%] mx-auto px-2 w-full'>
