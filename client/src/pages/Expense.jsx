@@ -4,11 +4,17 @@ import { useState } from 'react'
 
 function Expense() {
   const [open, setOpen] = useState(false)
+  const [details,setDetails] = useState({
+      userId: '',
+      expenseDetails:'',
+      expensePrice:'',
+      expenseDate:'',
+    })
   const handleOpen = () => {
     setOpen(!open)
   }
   return (
-    <div className={`relative w-full h-full`}>
+    <div className={`relative w-full h-full ${open ? 'overflow-hidden' : ''}`}>
       <div className='max-w-7xl md:w-[90%] mx-auto px-2 w-full'>
         <div className='p-4 bg-white rounded-md mt-4 flex flex-col h-[400px] mb-2'>
           <div className='flex justify-between mb-2'>
@@ -16,7 +22,7 @@ function Expense() {
                 <h1 className='text-md text-gray-800 font-extrabold'>Expense Overview</h1>
                 <p className='text-xs text-gray-600'>Track your spendings over time and gain insights into where your money goes</p>
             </div>
-            <button className='py-2 px-4 text-blue-600 font-extrabold cursor-pointer border rounded-md border-blue-600'>+ Add Expense</button>
+            <button className='py-2 px-4 text-blue-600 font-extrabold cursor-pointer border rounded-md border-blue-600' onClick={() => handleOpen()}>+ Add Expense</button>
           </div>
         </div>
            <div className='p-4 bg-white rounded-md mt-4 flex flex-col h-[400px] overflow-y-auto'>
@@ -31,7 +37,7 @@ function Expense() {
        <div className={`absolute bg-white z-50 w-[300px] md:w-[600px] flex flex-col rounded-md shadow-ms p-4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  ${open ? 'block' : 'hidden'}`}>
       <div className={`flex justify-between border-b`}>
        <h1 className='text-md text-gray-700 mb-4'>Add Expense</h1>
-       <XIcon className='h-5 w-5'/>
+       <XIcon className='h-5 w-5' onClick={() => handleOpen()}/>
       </div>
       <form action="" className='mt-4'>
         <label htmlFor="incomesource">Expense</label>
