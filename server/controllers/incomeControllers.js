@@ -45,7 +45,16 @@ export const incomeTransaction = (request,response) => {
         database.query(sqlQuerry,[id], (error, result) => {
             if (error) return response.status(200).json({status: false, message: error})
             if (result.length > 0) {
-                return response.status(200).json({status: true, result: result})
+                const sqlQuerry = "SELECT expenseDetails, expenseDate, expensePrice FROM expense where user_id = ?"
+                database.query(sqlQuerry,[id], (err, results) => {
+                    if (err) return response.status(200).json({status: false, message: err})
+                    if (results.length > 0) {
+                        return response.status(200).json({status: true, result: {
+                            income: result,
+                            expense: results
+                        }})
+                    }
+                })
             } else {
                 return response.status(404).json({status: false, message: "user not found"})
             }
