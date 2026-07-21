@@ -1,7 +1,12 @@
 import { Download, XIcon } from 'lucide-react'
 import React from 'react'
+import { useState } from 'react'
 
 function Expense() {
+  const [open, setOpen] = useState(false)
+  const handleOpen = () => {
+    setOpen(!open)
+  }
   return (
     <div className={`relative w-full h-full`}>
       <div className='max-w-7xl md:w-[90%] mx-auto px-2 w-full'>
@@ -35,7 +40,7 @@ function Expense() {
         <input type="number"  className='w-full p-2 border rounded-md mb-2' required id='incomeprice' name='incomePrice'/>    
         <label htmlFor="incomedate">Date</label>
         <input type="date"  className='w-full p-2 border rounded-md mb-2' required id='incomedate' name='incomeDate'/>    
-        <button className='w-full py-2 bg-blue-600 text-white font-extrabold cursor-pointer rounded-md mt-4'>Add Income</button>
+        <button className='w-full py-2 bg-blue-600 text-white font-extrabold cursor-pointer rounded-md mt-4'>Add Expense</button>
       </form>
       </div>
       <div className={`absolute bg-black/40 backdrop-blur-sm z-40 w-full h-screen  shadow-ms p-4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${open ? 'block transition-all duration-300' : 'hidden'}`}></div>
