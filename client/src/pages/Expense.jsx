@@ -84,7 +84,7 @@ function Expense() {
        <h1 className='text-md text-gray-700 mb-4'>Add Expense</h1>
        <XIcon className='h-5 w-5' onClick={() => handleOpen()}/>
       </div>
-      <form action="" className='mt-4'>
+      <form action="" className='mt-4' onSubmit={handleSubmit}>
         <label htmlFor="incomeexpense">Expense</label>
         <input type="text" value={details.expenseDetails} onChange={handleDetails} className='w-full p-2 border rounded-md mb-2' required id='incomeexpense' name='expenseDetails'/>
         <label htmlFor="expenseprice">Amount</label>

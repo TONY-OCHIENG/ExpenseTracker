@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 
 function Home() {
   const [income,setIncome] = useState(null)
+  const [expense, setExpense] = useState(null)
   const [userId, setUserID] = useState(null)
   
   useEffect(() => {
@@ -33,6 +34,19 @@ function Home() {
     }
     
     fetchIncome()
+  },[userId])
+  useEffect(() => {
+    const fetchExpense = async () => {
+    axios.get(`http://localhost:3000/auth/totalExpense/${userId}`)
+    .then((response) => {
+      if (response.data.status) {
+        setExpense(response.data.result)
+      }
+    })
+    .catch((error) => { console.log(error)})
+    }
+    
+    fetchExpense()
   },[userId])
   const formatter = new Intl.NumberFormat('en-US')
   return (
