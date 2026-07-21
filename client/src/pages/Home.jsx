@@ -4,11 +4,14 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { Chart as Chartjs} from 'chart.js/auto'
+import { Bar, Doughnut, Pie } from 'react-chartjs-2'
 
 function Home() {
   const [income,setIncome] = useState(null)
   const [expense, setExpense] = useState(null)
   const [userId, setUserID] = useState(null)
+  const [balance, setBalance] = useState(null)
   
   useEffect(() => {
     axios.get('http://localhost:3000/auth/user')
@@ -50,12 +53,15 @@ function Home() {
     fetchExpense()
   },[userId])
   const formatter = new Intl.NumberFormat('en-US')
-  const calculateBalance = (income, expense) => {
-    return formatter.format(income - expense)
-  }
-  useEffect (() => {
-    calculateBalance(income, expense)
-  },[])
+ 
+
+  useEffect(() => {
+    const calculateBalance = (income, expense) => {
+        return formatter.format(income - expense)
+    }
+    const balaNCE = calculateBalance(income,expense)
+    setBalance(balaNCE)
+  })
   return (
     <div className='w-full h-[100vh]'>
       <div className='max-w-7xl mx-auto md:w-[90%] w-full px-4'>
@@ -66,7 +72,7 @@ function Home() {
             </div>
              <div className='flex flex-col ml-5'>
                 <h1 className='text-gray-700'>Total Balance</h1>
-                <h1 className='font-extrabold text-xl'>KSH {calculateBalance(income,expense)}</h1>
+                <h1 className='font-extrabold text-xl'>KSH {balance}</h1>
              </div>
           </div>
           <div className='bg-white p-4 rounded-md shadow-md flex  gap-2'>
@@ -97,7 +103,23 @@ function Home() {
           </div>
           <div className='p-4 rounded-md bg-white shadow-md h-[500px]'>
               <div className='flex justify-between items-center'>
-              <p className='text-sm text-gray-600 mt-2'>Financial Overview</p>
+              <p className='text-sm text-gray-600 mt-2'>Financial Overview</p>         
+            </div>
+            <div className='h-[80%] mt-10 flex justify-center items-center'>
+                <Pie className='w-full'
+                data = {{
+                    datasets: [{
+                        data: [income,expense],
+                        backgroundColor: ["blue","red"]
+                    }],
+
+                    // These labels appear in the legend and in the tooltips when hovering different arcs
+                    labels: [
+                        'Income',
+                        'Expense'
+                    ]
+                }}
+              />
             </div>
           </div>
         </div>        
