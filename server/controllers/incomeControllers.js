@@ -41,11 +41,11 @@ export const totalIncome = (request,response) => {
 export const incomeTransaction = (request,response) => {
     const { id } = request.params
     try {
-        const sqlQuerry = "SELECT incomeDetails, incomeDate, incomePrice FROM income where user_id = ?"
+        const sqlQuerry = "SELECT incomeDetails as transactionDetail, incomeDate as transactionDate, incomePrice as transactionPrice FROM income where user_id = ?"
         database.query(sqlQuerry,[id], (error, result) => {
             if (error) return response.status(200).json({status: false, message: error})
             if (result.length > 0) {
-                const sqlQuerry = "SELECT expenseDetails, expenseDate, expensePrice FROM expense where user_id = ?"
+                const sqlQuerry = "SELECT expenseDetails as transactionDetail, expenseDate as transactionDate, expensePrice as transactionPrice FROM expense where user_id = ?"
                 database.query(sqlQuerry,[id], (err, results) => {
                     if (err) return response.status(200).json({status: false, message: err})
                     if (results.length > 0) {
