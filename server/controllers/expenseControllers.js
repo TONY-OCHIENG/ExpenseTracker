@@ -21,4 +21,18 @@ export const expense = (request,response) => {
 
 export const totalExpense = (request,response) => {
     const { id } = request.params
+    try {
+        const sqlQuerry = "SELECT SUM(incomePrice) as totalExpense FROM expense WHERE user_id = ?"
+        database.query(sqlQuerry,[id], (error,result) => {
+            if (error) return response.status(200).json({status: false, message: error})
+            if (result.length > 0) {
+                return response.status(200).json({status: true, result: result[0].totalIncome})
+            } else {
+                return response.status(404).json({status: false, message: "user not found"})
+            }
+        })
+    } catch (error) {
+        console.log(error)
+        return response.status(500).json({status: false, message: "Internal server error"})
+    }
 }
