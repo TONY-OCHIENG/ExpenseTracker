@@ -39,6 +39,7 @@ function Home() {
     const fetchExpense = async () => {
     axios.get(`http://localhost:3000/auth/totalExpense/${userId}`)
     .then((response) => {
+      console.log(response)
       if (response.data.status) {
         setExpense(response.data.result)
       }
@@ -49,6 +50,12 @@ function Home() {
     fetchExpense()
   },[userId])
   const formatter = new Intl.NumberFormat('en-US')
+  const calculateBalance = (income, expense) => {
+    return formatter.format(income - expense)
+  }
+  useEffect (() => {
+    calculateBalance(income, expense)
+  },[])
   return (
     <div className='w-full h-[100vh]'>
       <div className='max-w-7xl mx-auto md:w-[90%] w-full px-4'>
@@ -59,7 +66,7 @@ function Home() {
             </div>
              <div className='flex flex-col ml-5'>
                 <h1 className='text-gray-700'>Total Balance</h1>
-                <h1 className='font-extrabold text-xl'>KSH 90,000</h1>
+                <h1 className='font-extrabold text-xl'>KSH {calculateBalance(income,expense)}</h1>
              </div>
           </div>
           <div className='bg-white p-4 rounded-md shadow-md flex  gap-2'>
@@ -77,7 +84,7 @@ function Home() {
             </div>
              <div className='flex flex-col ml-5'>
                 <h1 className='text-gray-700'>Total Expense</h1>
-                <h1 className='font-extrabold text-xl'>KSH 100,000</h1>
+                <h1 className='font-extrabold text-xl'>KSH  {formatter.format(expense > 0 ? expense : 0)}</h1>
              </div>
           </div>         
         </div>
