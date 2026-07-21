@@ -42,7 +42,6 @@ function Home() {
     const fetchExpense = async () => {
     axios.get(`http://localhost:3000/auth/totalExpense/${userId}`)
     .then((response) => {
-      console.log(response)
       if (response.data.status) {
         setExpense(response.data.result)
       }
@@ -62,6 +61,16 @@ function Home() {
     const balaNCE = calculateBalance(income,expense)
     setBalance(balaNCE)
   })
+  
+  const fetchTransaction = async () => {
+    axios.get(`http://localhost:3000/auth/incomeTransaction/${userId}`)
+    .then((response) => {
+      console.log(response)
+    })
+    .catch((error) => console.log(error))
+   }
+
+   fetchTransaction()
   return (
     <div className='w-full h-[100vh]'>
       <div className='max-w-7xl mx-auto md:w-[90%] w-full px-4'>
@@ -99,7 +108,17 @@ function Home() {
             <div className='flex justify-between items-center'>
               <p className='text-sm text-gray-600'>Recent Transactions</p>
               <Link to={'/dashboard/expense'} className='flex text-xs px-4 py-2 items-center gap-2 bg-gray-200 rounded-md text-gray-600'>See All <ArrowRight className='w-4 h-4 text-blue-600'/></Link>
+            
             </div>
+             <div className='h-[85%] mt-10 w-full overflow-y-auto'>
+              <table className='w-full'>
+                <thead className='text-gray-600'>
+                  <th>Items</th>
+                  <th>date</th>
+                  <th>Price</th>
+                </thead>
+              </table>
+             </div>
           </div>
           <div className='p-4 rounded-md bg-white shadow-md h-[500px]'>
               <div className='flex justify-between items-center'>
