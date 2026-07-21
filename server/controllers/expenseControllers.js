@@ -18,3 +18,7 @@ export const expense = (request,response) => {
         return response.status(500).json({status: false, message: "Internal server error"})
     }    
 }
+
+export const totalExpense = (request,response) => {
+    const { id } = request.params
+}
