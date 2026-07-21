@@ -4,6 +4,7 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 function Expense() {
   const [open, setOpen] = useState(false)
@@ -34,6 +35,27 @@ function Expense() {
       ...prev,
       [name] : value
     }))
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    axios.post('http://localhost:3000/auth/expense',details)
+    .then((response) => {
+      if (response.data.status) {
+        toast.success(response.data.message)
+        setOpen(false)
+        setDetails({
+          expenseDetails:'',
+          expensePrice:'',
+          expenseDate:''
+        })
+      } else {
+        toast.error("An error occurred")
+      }
+    })
+    .catch((error) => {
+      console.log(error)
+    })
   }
   
   return (
