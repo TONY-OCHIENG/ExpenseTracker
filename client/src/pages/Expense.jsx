@@ -1,6 +1,9 @@
+import axios from 'axios'
 import { Download, XIcon } from 'lucide-react'
 import React from 'react'
+import { useEffect } from 'react'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function Expense() {
   const [open, setOpen] = useState(false)
@@ -10,6 +13,18 @@ function Expense() {
       expensePrice:'',
       expenseDate:'',
     })
+  const navigate = useNavigate()
+  useEffect(() => {
+      axios.get('http://localhost:3000/auth/user')
+      .then((response) => {
+          if (response.data.status) {
+            setDetails({userId:response.data.details.userID})
+          } else {
+            navigate('/login')
+          }
+      })
+      .catch((error) => { console.log(error)})
+  },[])
   const handleOpen = () => {
     setOpen(!open)
   }
