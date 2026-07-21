@@ -3,6 +3,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import authRoute from './routes/authRoutes.js'
 import cookieParser from 'cookie-parser'
+import incomeRoutes from './routes/incomeRoutes.js'
 import expenseRoutes from './routes/expenseRoutes.js'
 dotenv.config()
 
@@ -15,7 +16,8 @@ app.use(cors({
     credentials:true,
 }))
 app.use("/auth",authRoute)
+app.use('/auth',incomeRoutes)
 app.use('/auth',expenseRoutes)
 app.listen(process.env.PORT,() => {
     console.log("Server is running")
-})
+}) 

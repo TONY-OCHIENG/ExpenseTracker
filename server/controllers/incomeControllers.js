@@ -22,7 +22,6 @@ export const income = (request,response) => {
 
 export const totalIncome = (request,response) => {
     const { id } = request.params
-    console.log(id) 
     try {
         const sqlQuerry = "SELECT SUM(incomePrice) as totalIncome FROM income WHERE user_id = ?"
         database.query(sqlQuerry,[id], (error,result) => {
