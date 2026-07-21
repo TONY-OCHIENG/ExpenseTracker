@@ -12,6 +12,8 @@ function Home() {
   const [expense, setExpense] = useState(null)
   const [userId, setUserID] = useState(null)
   const [balance, setBalance] = useState(null)
+  const [transactions,setTransactions] = useState([])
+  const [expensetransaction, setExpensetransaction] = useState([])
   
   useEffect(() => {
     axios.get('http://localhost:3000/auth/user')
@@ -65,12 +67,19 @@ function Home() {
   const fetchTransaction = async () => {
     axios.get(`http://localhost:3000/auth/incomeTransaction/${userId}`)
     .then((response) => {
-      console.log(response)
+      if (response.data.status) {
+        setTransactions(response.data.result.income)
+        setExpensetransaction(response.data.result.expense)
+      }
     })
     .catch((error) => console.log(error))
    }
 
-   fetchTransaction()
+   useEffect(() => {
+    fetchTransaction()
+   },[userId])
+   
+   const transactionDetails = transactions.concat(expensetransaction)
   return (
     <div className='w-full h-[100vh]'>
       <div className='max-w-7xl mx-auto md:w-[90%] w-full px-4'>
