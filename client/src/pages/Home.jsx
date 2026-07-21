@@ -121,11 +121,22 @@ function Home() {
             </div>
              <div className='h-[85%] mt-10 w-full overflow-y-auto'>
               <table className='w-full'>
-                <thead className='text-gray-600'>
+                <thead className='text-gray-600 text-left'>
                   <th>Items</th>
                   <th>date</th>
                   <th>Price</th>
                 </thead>
+                <tbody>
+                  {
+                    transactionDetails.map((item) => (
+                      <tr className='even:bg-blue-100 text-xs text-gray-600'>
+                        <td className='p-2'>{item.transactionDetail}</td>
+                        <td>{item.transactionDate}</td>
+                        <td>{item.transactionPrice}</td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
               </table>
              </div>
           </div>
