@@ -84,7 +84,20 @@ function Expense() {
       fetchDetails()
     },[userID])
    const handleDelete = (id) => {
-
+        axios.delete(`http://localhost:3000/auth/deleteExpense/${id}`)
+        .then((response) => {
+          if (response.data.status) {
+            toast.success(response.data.message)
+            setTimeout(() => {
+              window.location.reload()
+            },4000)
+          } else {
+            toast.error("An error occured")
+          }
+        })
+        .catch((error) => {
+          console.log(error)
+        })
    }
   return (
     <div className={`relative w-full h-full ${open ? 'overflow-hidden' : ''}`}>
