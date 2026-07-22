@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Chart as Chartjs} from 'chart.js/auto'
 import { Bar, Doughnut, Pie } from 'react-chartjs-2'
+import { dateFormat } from '../components/date'
 
 function Home() {
   const [income,setIncome] = useState(null)
@@ -131,7 +132,7 @@ function Home() {
                     transactionDetails.map((item) => (
                       <tr className='even:bg-blue-100 text-xs text-gray-600'>
                         <td className='p-2'>{item.transactionDetail}</td>
-                        <td>{item.transactionDate}</td>
+                        <td>{dateFormat(item.transactionDate)}</td>
                         <td>{item.transactionPrice}</td>
                       </tr>
                     ))

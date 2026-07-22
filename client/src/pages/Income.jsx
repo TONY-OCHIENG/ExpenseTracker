@@ -8,6 +8,7 @@ import { toast } from 'react-toastify'
 
 function Income() {
   const [open,setOpen] = useState(false)
+  const [userID, setUserID] = useState(null)
   const [details,setDetails] = useState({
     userId: '',
     incomeDetails:'',
@@ -20,6 +21,7 @@ function Income() {
     .then((response) => {
       if (response.data.status) {
         setDetails({userId:response.data.details.userID})
+        setUserID(response.data.details.userID)
       } else {
         navigate('/login')
       }
@@ -56,6 +58,16 @@ function Income() {
       console.log(error)
     })
   }
+  useEffect(() => {
+    const fetchDetails = async () => {
+        axios.get(`http://localhost:3000/auth/incomeDetails/${userID}`)
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((error) => { console.log(error) })
+      }
+    fetchDetails()
+  },[userID])
   return (
     <div className={`relative w-full h-full ${open ? 'overflow-hidden' : ''}`}>
       <div className='max-w-7xl md:w-[90%] mx-auto px-2 w-full'>
