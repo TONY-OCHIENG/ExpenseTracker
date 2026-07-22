@@ -1,12 +1,14 @@
 import axios from 'axios'
-import { Download, XIcon } from 'lucide-react'
-import React from 'react'
+import { Download, Trash, XIcon } from 'lucide-react'
+import React, { useRef } from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { Chart as Chartjs} from 'chart.js/auto'
 import { Line } from 'react-chartjs-2'
+import { useDownloadExcel } from 'react-export-table-to-excel'
+import { dateFormat } from '../components/date'
 
 function Expense() {
   const [open, setOpen] = useState(false)
@@ -18,6 +20,12 @@ function Expense() {
       expensePrice:'',
       expenseDate:'',
     })
+  const tableRef = useRef(null)
+  const { onDownload } = useDownloadExcel({
+      currentTableRef:tableRef.current,
+      filename: "expense_Details",
+      sheet:"expense_Details"
+  })
   const navigate = useNavigate()
   useEffect(() => {
       axios.get('http://localhost:3000/auth/user')
@@ -75,7 +83,9 @@ function Expense() {
         }
       fetchDetails()
     },[userID])
-   console.log(expense)
+   const handleDelete = (id) => {
+
+   }
   return (
     <div className={`relative w-full h-full ${open ? 'overflow-hidden' : ''}`}>
       <div className='max-w-7xl md:w-[90%] mx-auto px-2 w-full'>
@@ -88,26 +98,48 @@ function Expense() {
             <button className='py-2 px-4 text-blue-600 font-extrabold cursor-pointer border rounded-md border-blue-600' onClick={() => handleOpen()}>+ Add Expense</button>
           </div>
             <div className='w-full h-[90%]'>
-                      <Line className='w-full'
-                         data = {{
-                            labels: expense.map((item) => (item.transactionDetail)),
-                            datasets: [{
-                              label: 'My Total Expenses',
-                              data: expense.map((item) => (item.transactionPrice)),
-                              fill: false,
-                              borderColor: 'rgb(75, 192, 192)',
-                              tension: 0.1
-                            }]
-                          }}                            
-                      />
-                    </div>
+                <Line className='w-full'
+                    data = {{
+                      labels: expense.map((item) => (item.transactionDetail)),
+                      datasets: [{
+                        label: 'My Total Expenses',
+                        data: expense.map((item) => (item.transactionPrice)),
+                        fill: false,
+                        borderColor: 'rgb(75, 192, 192)',
+                        tension: 0.1
+                      }]
+                    }}                            
+                />
+            </div>
         </div>
            <div className='p-4 bg-white rounded-md mt-4 flex flex-col h-[400px] overflow-y-auto'>
           <div className='flex justify-between mb-2'>
             <div>
                 <h1 className='text-md text-gray-800 font-extrabold'>Expenses </h1>
             </div>
-            <button className='py-2 px-4 text-blue-600 font-extrabold cursor-pointer border rounded-md border-blue-600 flex items-center gap-2'><Download className='h-5 w-5'/> Download</button>
+            <button className='py-2 px-4 text-blue-600 font-extrabold cursor-pointer border rounded-md border-blue-600 flex items-center gap-2' onClick={ onDownload }><Download className='h-5 w-5'/> Download</button>
+          </div>
+            <div className='w-full h-[90%] mt-2 overflow-y-auto'>
+            <table ref={tableRef} className='w-full h-full'>
+              <thead className='text-gray-600 text-left' >
+                <th>Item</th>
+                <th>Date</th>
+                <th>Price</th>
+                <th>Action</th>
+              </thead>
+              <tbody className='p-2'>
+                {
+                  expense.map((item) => (
+                    <tr className='text-gray-600 text-xs even:bg-gray-100 '>
+                      <td>{item.transactionDetail}</td>
+                      <td>{dateFormat(item.transactionDate)}</td>
+                      <td>{item.transactionPrice}</td>
+                      <td><Trash className='h-5 w-5 text-red-600 cursor-pointer' onClick={() => handleDelete(item.expense_id)}/></td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
