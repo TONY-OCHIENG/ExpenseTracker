@@ -66,7 +66,7 @@ export const incomeTransaction = (request,response) => {
 }
 
 export const incomeDetails = (request,response) => {
-    const { id } = request.body
+    const { id } = request.params
     try {
         const sqlQuerry = "SELECT incomeDetails as transactionDetail, incomeDate as transactionDate, incomePrice as transactionPrice FROM income where user_id = ?"
         database.query(sqlQuerry,[id],(error,result) => {
