@@ -80,3 +80,17 @@ export const incomeDetails = (request,response) => {
         return response.status(500).json({status: false, message:"Internal server error"})
     }
 }
+
+export const deleteIncome = (request,response) => {
+    const { id } = request.params
+    try {
+        const sqlQuerry = "DELETE FROM income where income_id = ?"
+        database.query(sqlQuerry,[id],(error,result) => {
+            if (error) return response.status(200).json({status: false,message: error})
+            return response.status(200).json({status: true, message: "Income deleted"})
+        })
+    } catch (error) {
+        console.log(error)
+        return response.status(500).json({status: false, message: "Internal server error"})
+    }
+}
