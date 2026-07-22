@@ -68,7 +68,7 @@ export const incomeTransaction = (request,response) => {
 export const incomeDetails = (request,response) => {
     const { id } = request.params
     try {
-        const sqlQuerry = "SELECT incomeDetails as transactionDetail, incomeDate as transactionDate, incomePrice as transactionPrice FROM income where user_id = ?"
+        const sqlQuerry = "SELECT income_id, incomeDetails as transactionDetail, incomeDate as transactionDate, incomePrice as transactionPrice FROM income where user_id = ?"
         database.query(sqlQuerry,[id],(error,result) => {
             if (error) return response.status(200).json({status: false, message: error})
             if (result.length > 0) {
