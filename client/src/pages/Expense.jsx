@@ -8,6 +8,8 @@ import { toast } from 'react-toastify'
 
 function Expense() {
   const [open, setOpen] = useState(false)
+  const [userID, setUserID] = useState(null)
+  const [expense,setExpense] = useState([])
   const [details,setDetails] = useState({
       userId: '',
       expenseDetails:'',
@@ -20,6 +22,7 @@ function Expense() {
       .then((response) => {
           if (response.data.status) {
             setDetails({userId:response.data.details.userID})
+            setUserID(response.data.details.userID)
           } else {
             navigate('/login')
           }
@@ -57,7 +60,20 @@ function Expense() {
       console.log(error)
     })
   }
-  
+
+   useEffect(() => {
+      const fetchDetails = async () => {
+          axios.get(`http://localhost:3000/auth/expenseDetails/${userID}`)
+        .then((response) => {
+          if (response.data.status) {
+            setExpense(response.data.result)
+          }
+        })
+        .catch((error) => { console.log(error) })
+        }
+      fetchDetails()
+    },[userID])
+   console.log(expense)
   return (
     <div className={`relative w-full h-full ${open ? 'overflow-hidden' : ''}`}>
       <div className='max-w-7xl md:w-[90%] mx-auto px-2 w-full'>

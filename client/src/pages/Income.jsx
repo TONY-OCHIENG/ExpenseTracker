@@ -145,7 +145,7 @@ function Income() {
                       <td>{item.transactionDetail}</td>
                       <td>{dateFormat(item.transactionDate)}</td>
                       <td>{item.transactionPrice}</td>
-                      <td><Trash className='h-5 w-5 text-red-600 cursor-pointer'/></td>
+                      <td><Trash className='h-5 w-5 text-red-600 cursor-pointer' onClick={() => handleDelete(item.income_id)}/></td>
                     </tr>
                   ))
                 }
