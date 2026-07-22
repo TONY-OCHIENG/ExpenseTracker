@@ -36,3 +36,19 @@ export const totalExpense = (request,response) => {
         return response.status(500).json({status: false, message: "Internal server error"})
     }
 }
+
+export const expenseDetails = (request,response) => {
+    const { id } = request.params
+    try {
+        const sqlQuerry = "SELECT expense_id, expenseDetails as transactionDetail, expenseDate as transactionDate, expensePrice as transactionPrice FROM expense where user_id = ?"
+        database.query(sqlQuerry,[id],(error,result) => {
+            if (error) return response.status(200).json({status: false, message: error})
+            if (result.length > 0) {
+                return response.status(200).json({status: true, result: result})
+            }
+        })
+    } catch (error) {
+        console.log(error)
+        return response.status(500).json({status: false, message:"Internal server error"})
+    }
+}
