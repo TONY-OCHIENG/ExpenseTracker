@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { Download, Trash, XIcon } from 'lucide-react'
-import React from 'react'
+import React, { useRef } from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { Chart as Chartjs} from 'chart.js/auto'
@@ -8,11 +8,13 @@ import { Line } from 'react-chartjs-2'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { dateFormat } from '../components/date'
+import { useDownloadExcel } from 'react-export-table-to-excel'
 
 function Income() {
   const [open,setOpen] = useState(false)
   const [userID, setUserID] = useState(null)
   const [income,setIncome] = useState([])
+  const tableRef = useRef(null)
   const [details,setDetails] = useState({
     userId: '',
     incomeDetails:'',
@@ -20,6 +22,11 @@ function Income() {
     incomeDate:'',
   })
   const navigate = useNavigate()
+  const { onDownload } = useDownloadExcel({
+    currentTableRef:tableRef.current,
+    filename: "income_Details",
+    sheet:"income_Details"
+  })
   useEffect(() => {
     axios.get('http://localhost:3000/auth/user')
     .then((response) => {
@@ -74,7 +81,6 @@ function Income() {
       }
     fetchDetails()
   },[userID])
-  console.log()
   return (
     <div className={`relative w-full h-full ${open ? 'overflow-hidden' : ''}`}>
       <div className='max-w-7xl md:w-[90%] mx-auto px-2 w-full'>
@@ -106,11 +112,11 @@ function Income() {
             <div>
                 <h1 className='text-md text-gray-800 font-extrabold'>Income Sources</h1>
             </div>
-            <button className='py-2 px-4 text-blue-600 font-extrabold cursor-pointer border rounded-md border-blue-600 flex items-center gap-2'><Download className='h-5 w-5'/> Download</button>
+            <button onClick={ onDownload } className='py-2 px-4 text-blue-600 font-extrabold cursor-pointer border rounded-md border-blue-600 flex items-center gap-2'><Download className='h-5 w-5'/> Download</button>
           </div>
           <div className='w-full h-[90%] mt-2 overflow-y-auto'>
-            <table className='w-full h-full'>
-              <thead className='text-gray-600 text-left'>
+            <table ref={tableRef} className='w-full h-full'>
+              <thead className='text-gray-600 text-left' >
                 <th>Item</th>
                 <th>Date</th>
                 <th>Price</th>
