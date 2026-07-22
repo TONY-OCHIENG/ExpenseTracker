@@ -3,12 +3,15 @@ import { Download, XIcon } from 'lucide-react'
 import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
+import { Chart as Chartjs} from 'chart.js/auto'
+import { Line } from 'react-chartjs-2'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 function Income() {
   const [open,setOpen] = useState(false)
   const [userID, setUserID] = useState(null)
+  const [income,setIncome] = useState([])
   const [details,setDetails] = useState({
     userId: '',
     incomeDetails:'',
@@ -62,12 +65,15 @@ function Income() {
     const fetchDetails = async () => {
         axios.get(`http://localhost:3000/auth/incomeDetails/${userID}`)
       .then((response) => {
-        console.log(response)
+        if (response.data.status) {
+          setIncome(response.data.result)
+        }
       })
       .catch((error) => { console.log(error) })
       }
     fetchDetails()
   },[userID])
+  console.log()
   return (
     <div className={`relative w-full h-full ${open ? 'overflow-hidden' : ''}`}>
       <div className='max-w-7xl md:w-[90%] mx-auto px-2 w-full'>
@@ -78,6 +84,20 @@ function Income() {
                 <p className='text-xs text-gray-600'>Track your earnings over time and analyse your income trends</p>
             </div>
             <button className='py-2 px-4 text-blue-600 font-extrabold cursor-pointer border rounded-md border-blue-600' onClick={() => handleOpen()}>+ Add Income</button>
+          </div>
+          <div className='w-full h-[90%]'>
+            <Line className='w-full'
+               data = {{
+                  labels: income.map((item) => (item.transactionDetail)),
+                  datasets: [{
+                    label: 'My Total income sources',
+                    data: income.map((item) => (item.transactionPrice)),
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                  }]
+                }}                            
+            />
           </div>
         </div>
            <div className='p-4 bg-white rounded-md mt-4 flex flex-col h-[400px] overflow-y-auto'>
