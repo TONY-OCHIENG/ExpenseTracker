@@ -5,6 +5,8 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { Chart as Chartjs} from 'chart.js/auto'
+import { Line } from 'react-chartjs-2'
 
 function Expense() {
   const [open, setOpen] = useState(false)
@@ -85,6 +87,20 @@ function Expense() {
             </div>
             <button className='py-2 px-4 text-blue-600 font-extrabold cursor-pointer border rounded-md border-blue-600' onClick={() => handleOpen()}>+ Add Expense</button>
           </div>
+            <div className='w-full h-[90%]'>
+                      <Line className='w-full'
+                         data = {{
+                            labels: expense.map((item) => (item.transactionDetail)),
+                            datasets: [{
+                              label: 'My Total Expenses',
+                              data: expense.map((item) => (item.transactionPrice)),
+                              fill: false,
+                              borderColor: 'rgb(75, 192, 192)',
+                              tension: 0.1
+                            }]
+                          }}                            
+                      />
+                    </div>
         </div>
            <div className='p-4 bg-white rounded-md mt-4 flex flex-col h-[400px] overflow-y-auto'>
           <div className='flex justify-between mb-2'>
