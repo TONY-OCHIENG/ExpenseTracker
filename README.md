@@ -87,7 +87,7 @@ expense-tracker/
 
 ![image alt](https://github.com/TONY-OCHIENG/ExpenseTracker/blob/14bb2a0624723819180360c2fec20d9e9f02f8c9/screenshot/Screenshot%20From%202026-07-23%2011-10-35.png)
 ![image alt](https://github.com/TONY-OCHIENG/ExpenseTracker/blob/617b52742c9340070ff4823ec856b3e5051ab268/screenshot/Screenshot%20From%202026-07-23%2011-10-44.png)
-![image alt](https://github.com/TONY-OCHIENG/CarRental/blob/b51024d57a92c8e541595b6a0a9d1a9748bb3927/screenshot/Screenshot%20From%202026-07-10%2016-23-00.png)
+![image alt](https://github.com/TONY-OCHIENG/ExpenseTracker/blob/13738580cebc775f095a1140d7bc8105d685a707/screenshot/Screenshot%20From%202026-07-23%2011-10-59.png)
 ![image alt](https://github.com/TONY-OCHIENG/CarRental/blob/da42a548ee8415086685cb806dc14eb3ad10dce5/screenshot/Screenshot%20From%202026-07-10%2016-22-50.png)
 ![image alt](https://github.com/TONY-OCHIENG/CarRental/blob/441ab1267955de5947db7ad30869d03cfe980ecd/screenshot/Screenshot%20From%202026-07-10%2016-22-39.png)
 ![image alt](https://github.com/TONY-OCHIENG/CarRental/blob/631651be8d24e5b645075be193701e859db61f6d/screenshot/Screenshot%20From%202026-07-10%2016-22-06.png)
