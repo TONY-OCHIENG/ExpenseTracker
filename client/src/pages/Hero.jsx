@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 function Hero() {
     const navigate = useNavigate()
   return (
-    <div className='py-20 h-[100vh] w-full bg-white'>
+    <div id='hero' className='py-20 h-[100vh] w-full bg-white'>
         <div className='max-w-7xl md:w-[80%] w-full px-2 mx-auto grid grid-cols-1 md:grid-cols-2 gap-4'>
             <div className='flex flex-col'>
                 <h1 className='mt-20 font-light text-4xl md:text-7xl text-gray-700'>Take Control Of Your Finances</h1>

@@ -5,9 +5,8 @@ import { useState } from 'react'
 import { useNavigate, useNavigation } from 'react-router-dom'
 function NavBar() {
     const navigationLink = [
-        {name: "Home",href:"home"},
-        {name: "Features", href:"services"},
-        {name: "About",href:"about"},
+        {name: "Home",href:"hero"},
+        {name: "Features", href:"features"},
         {name: "Testimonials", href: "testimonials"},
         {name: "Contact us", href: "contact"}
     ]
